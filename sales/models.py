@@ -4,6 +4,7 @@ from customers.models import Customer
 from profiles.models import Profile
 from django.utils import timezone
 from .utils import generate_transaction_id
+from django.shortcuts import reverse
 
 # Create your models here.
 # Position is Product * quantity -> price
@@ -20,7 +21,7 @@ class Position(models.Model):
 
     def __str__(self) -> str:
         return f"id: {self.id}, product: {self.product.name}, quantity: {self.quantity}"
-
+    
 # Sale is comprised of many Positions
 class Sale(models.Model):
     transaction_id = models.CharField(max_length=12, blank=True)
@@ -43,6 +44,9 @@ class Sale(models.Model):
     def __str__(self) -> str:
         return f"Sales for the amount of €{self.total_price}"
 
+    def get_absolute_url(self):
+        return reverse("sales:detail", kwargs={"pk": self.pk})
+        
     def get_positions(self):
         return self.positions.all()
 

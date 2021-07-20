@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Sale
 # Create your views here.
 
@@ -10,3 +10,7 @@ def home_view(request):
 class SaleListView(ListView):
     model = Sale
     template_name = 'sales/main.html'
+
+class SaleDetailView(DetailView):
+    model = Sale
+    template_name = 'sales/detail.html'

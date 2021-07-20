@@ -8,7 +8,7 @@ Sales list
 {% block content %}
 <h1 class="h1">Sales list</h1>
 {% for obj in object_list %}
-    <p>{{obj.transaction_id}} - {{obj}}</p>
+    <p><a href="{{obj.get_absolute_url}}">{{obj.transaction_id}} - {{obj}}</a></p>
 {% endfor %}
 {% endblock content %}
     
