@@ -20,13 +20,17 @@ def home_view(request):
             positions_data = []
             for sale in sales_qs:
                 for position in sale.get_positions():
-                    obj = {
-                        'position_id': position.id,
-                        'product': position.product.name,
-                        'quantity': position.quantity,
-                        'price': position.price,
-                    }
-                    positions_data.append(obj)
+                    sales_list = position.get_sales()
+                    print(sales_list)
+                    for pos_sale in sales_list:
+                        obj = {
+                            'position_id': position.id,
+                            'sales_id': pos_sale.id,
+                            'product': position.product.name,
+                            'quantity': position.quantity,
+                            'price': position.price,
+                        }
+                        positions_data.append(obj)
             positions_df = pd.DataFrame(positions_data)
 
             sales_df = sales_df.to_html()

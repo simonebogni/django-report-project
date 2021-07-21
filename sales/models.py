@@ -19,6 +19,10 @@ class Position(models.Model):
         self.price = self.product.price * self.quantity
         return super().save(*args, **kwargs)
 
+    def get_sales(self):
+        sales_list = self.sale_set.all()
+        return sales_list
+
     def __str__(self) -> str:
         return f"id: {self.id}, product: {self.product.name}, quantity: {self.quantity}"
     
