@@ -7,24 +7,35 @@ import pandas as pd
 
 def home_view(request):
     sales_df = None
+    positions_df = None
     form = SalesSearchForm(request.POST or None)
     if request.method == 'POST':
         date_from = request.POST.get('date_from')
         date_to = request.POST.get('date_to')
         chart_type = request.POST.get('chart_type')
 
-        qs = Sale.objects.filter(created_at__date__lte=date_to, created_at__date__gte=date_from)
-        if len(qs) > 0:
-            sales_df = pd.DataFrame(qs.values())
+        sales_qs = Sale.objects.filter(created_at__date__lte=date_to, created_at__date__gte=date_from)
+        if len(sales_qs) > 0:
+            sales_df = pd.DataFrame(sales_qs.values())
+            positions_data = []
+            for sale in sales_qs:
+                for position in sale.get_positions():
+                    obj = {
+                        'position_id': position.id,
+                        'product': position.product.name,
+                        'quantity': position.quantity,
+                        'price': position.price,
+                    }
+                    positions_data.append(obj)
+            positions_df = pd.DataFrame(positions_data)
+
             sales_df = sales_df.to_html()
-            print(sales_df)
-        else:
-            print('no data')
-        
+            positions_df = positions_df.to_html()
         
     context = {
         'form': form,
-        'sales_df': sales_df
+        'sales_df': sales_df,
+        'positions_df': positions_df
     }
     return render(request, 'sales/home.html', context)
 

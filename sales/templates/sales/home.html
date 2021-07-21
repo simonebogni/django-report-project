@@ -27,7 +27,16 @@ home
         {% if sales_df %}
             {{sales_df|safe}}
         {% else %}
-            <h3 class="h3">No data</h3>
+            <h3 class="h3">No sale data</h3>
+        {% endif %}
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        {% if positions_df %}
+            {{positions_df|safe}}
+        {% else %}
+            <h3 class="h3">No position data</h3>
         {% endif %}
     </div>
 </div>
