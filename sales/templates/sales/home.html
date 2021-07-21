@@ -24,6 +24,11 @@ home
 </div>
 <div class="row mt-3">
     <div class="col">
+        <h2 class="h2">Sales dataframe</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
         {% if sales_df %}
             {{sales_df|safe}}
         {% else %}
@@ -33,10 +38,29 @@ home
 </div>
 <div class="row mt-3">
     <div class="col">
+        <h2 class="h2">Positions dataframe</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
         {% if positions_df %}
             {{positions_df|safe}}
         {% else %}
             <h3 class="h3">No position data</h3>
+        {% endif %}
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <h2 class="h2">Merged dataframe (JOIN)</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        {% if merged_df %}
+            {{merged_df|safe}}
+        {% else %}
+            <h3 class="h3">No data</h3>
         {% endif %}
     </div>
 </div>
