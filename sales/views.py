@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import Sale
 from .forms import SalesSearchForm
+from .utils import get_customer_from_id, get_salesman_from_id
 import pandas as pd
 # Create your views here.
 
@@ -17,6 +18,10 @@ def home_view(request):
         sales_qs = Sale.objects.filter(created_at__date__lte=date_to, created_at__date__gte=date_from)
         if len(sales_qs) > 0:
             sales_df = pd.DataFrame(sales_qs.values())
+            # override customer_id and salesman_id to show the names
+            sales_df['customer_id'] = sales_df['customer_id'].apply(get_customer_from_id)
+            sales_df['salesman_id'] = sales_df['salesman_id'].apply(get_salesman_from_id)
+            sales_df.rename({'customer_id': 'customer', 'salesman_id': 'salesman'}, axis=1, inplace=True)
             positions_data = []
             for sale in sales_qs:
                 for position in sale.get_positions():
