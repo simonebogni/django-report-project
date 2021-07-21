@@ -21,7 +21,8 @@ def home_view(request):
             # override customer_id and salesman_id to show the names
             sales_df['customer_id'] = sales_df['customer_id'].apply(get_customer_from_id)
             sales_df['salesman_id'] = sales_df['salesman_id'].apply(get_salesman_from_id)
-            sales_df.rename({'customer_id': 'customer', 'salesman_id': 'salesman'}, axis=1, inplace=True)
+            sales_df['created_at'] = sales_df['created_at'].apply(lambda x: x.strftime('%Y-%m-%d'))
+            sales_df.rename({'customer_id': 'customer', 'salesman_id': 'salesman', 'created_at': 'creation date', 'updated_at': 'last updated'}, axis=1, inplace=True)
             positions_data = []
             for sale in sales_qs:
                 for position in sale.get_positions():
