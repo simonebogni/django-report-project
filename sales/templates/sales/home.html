@@ -64,6 +64,20 @@ home
         {% endif %}
     </div>
 </div>
+<div class="row mt-3">
+    <div class="col">
+        <h2 class="h2">Grouped dataframe with price aggregate (GROUP BY transaction_id)</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        {% if grouped_df %}
+            {{grouped_df|safe}}
+        {% else %}
+            <h3 class="h3">No data</h3>
+        {% endif %}
+    </div>
+</div>
     
 {% endblock content %}
 
