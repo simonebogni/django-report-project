@@ -78,6 +78,18 @@ home
         {% endif %}
     </div>
 </div>
-    
+{% if chart %}
+<div class="row mt-3">
+    <div class="col">
+        <h2 class="h2">Chart based on Grouped dataframe</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <img src="data:image/png;base64, {{chart|safe}}" alt="chart"/>
+    </div>
+</div>
+{% endif %}
+
 {% endblock content %}
 
