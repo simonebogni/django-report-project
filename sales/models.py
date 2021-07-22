@@ -14,9 +14,13 @@ class Position(models.Model):
     # price is automatic by overriding save method to set it as product.price * quantity
     price = models.FloatField(blank=True)
     created_at = models.DateTimeField(blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         self.price = self.product.price * self.quantity
+        # set creation date
+        if self.created_at is None:
+            self.created_at = timezone.now()
         return super().save(*args, **kwargs)
 
     def get_sales(self):
